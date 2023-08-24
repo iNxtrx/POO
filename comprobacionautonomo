@@ -1,0 +1,146 @@
+"""programa para gestionar los productos de una tienda 
+dos clases, una llamada producto y otra donde se va a trabajar el metodo principial, 
+la clase productos debe tener nombre, precio, cantidad del inventario, 
+ademas debe tener metodos definidos para aumentar o disminuir la cantidad que hay en el inventario 
+asi como una para obtener una total de la que hay en el inventario,
+el programa debe permitir insertar productos, actualizar precios, actualizar cantidades, borrar productos"""
+
+class Producto:
+    def __init__(self, nombre, precio, cantidad):
+        self.nombre = nombre
+        self.precio = precio
+        self.cantidad = cantidad
+
+class Inventario:
+    def __init__(self):
+
+        self.inventario_ = []
+
+    def mostrar_inventario(self):
+          
+        print("NOMBRE\tPRECIO\tCANTIDAD")
+        print("-----------------------------")
+        for producto in self.inventario_:
+            print(f"{producto.nombre}\t{producto.precio}\t   {producto.cantidad}")
+            print("-----------------------------")
+
+    def agregar_producto(self):
+        print("-----------------------------")
+        cantidad_productos = int(input("Cuantos productos desea crear: "))
+        print("-----------------------------")
+        for x in range(cantidad_productos):
+            if cantidad_productos==1:
+                nombre = input("Ingrese el nombre del producto: ")
+                print("-----------------------------")
+                precio = float(input(f"Ingrese el precio del producto ({nombre}): "))
+                print("-----------------------------")
+                cantidad = int(input(f"Ingrese la cantidad del producto ({nombre}): "))
+                print("-----------------------------")
+                producto = Producto(nombre, precio, cantidad)
+                self.inventario_.append(producto)
+                print(f"El producto {nombre} ha sido añadido al inventario.")
+                print("-----------------------------")
+            else:
+                nombre = input(f"Ingrese el nombre del producto #{x+1}: ")
+                print("-----------------------------")
+                precio = float(input(f"Ingrese el precio del producto ({nombre}): "))
+                print("-----------------------------")
+                cantidad = int(input(f"Ingrese la cantidad del producto ({nombre}): "))
+                print("-----------------------------")
+                producto = Producto(nombre, precio, cantidad)
+                self.inventario_.append(producto)
+                print(f"El producto {nombre} ha sido añadido al inventario.")
+                print("-----------------------------")
+
+    def quitar_producto(self):
+        print("-----------------------------")
+        encontrado = None
+        nombre_producto = input("Ingrese el nombre del producto que desea retirar: ")
+        print("-----------------------------")
+        for producto in self.inventario_:
+            if producto.nombre == nombre_producto:
+                encontrado = producto
+                break
+
+        if encontrado:
+            self.inventario_.remove(encontrado)
+            print("-----------------------------")
+            print(f"El producto '{encontrado.nombre}' ha sido eliminado del inventario.")
+            print("-----------------------------")
+        else:
+            print("-----------------------------")
+            print(f"No se encontró el producto '{nombre_producto}' en el inventario.")
+            print("-----------------------------")
+
+    def actualizar_precio(self):
+        encontrado = None
+        print("-----------------------------")
+        nombre_producto = input("Ingrese el nombre del producto que desea actualizar precio: ")
+        print("-----------------------------")
+        nuevo_precio=input("Ingrese el nuevo precio del producto: ")
+        print("-----------------------------")
+        for producto in self.inventario_:
+            if producto.nombre == nombre_producto:
+                producto.precio=nuevo_precio
+                encontrado=producto
+                break
+        if encontrado:
+            print("-----------------------------")
+            print(f"Al producto '{encontrado.nombre}' se le ha modificado su valor a {producto.precio}.")
+            print("-----------------------------")
+        else:
+            print("-----------------------------")
+            print(f"No se encontró el producto '{nombre_producto}' en el inventario.")
+            print("-----------------------------")
+        
+    def actualizar_cantidad(self):
+        encontrado = None
+        print("-----------------------------")
+        nombre_producto = input("Ingrese el nombre del producto que desea actualizar su cantidad: ")
+        print("-----------------------------")
+        nueva_cantidad=input("Ingrese la nueva cantidad del producto: ")
+        print("-----------------------------")
+        for producto in self.inventario_:
+            if producto.nombre == nombre_producto:
+                producto.cantidad=nueva_cantidad
+                encontrado=producto
+                break
+        if encontrado:
+            print("-----------------------------")
+            print(f"Al producto '{encontrado.nombre}' se le ha modificado su cantidad a {producto.cantidad}.")
+            print("-----------------------------")
+        else:
+            print("-----------------------------")
+            print(f"No se encontró el producto '{nombre_producto}' en el inventario.")
+            print("-----------------------------")
+    
+    def run(self):
+        while True:
+            print("-----------------------------")
+            menu = input("Seleccione numéricamente qué acción desea realizar:\n"
+                         "1. Mostrar inventario\n"
+                         "2. Añadir productos\n"
+                         "3. Quitar productos\n"
+                         "4. Actualizar precios\n"
+                         "5. Actualizar cantidades\n" 
+                         "6. Finalizar\n"
+                         "-----------------------------\n")
+            if menu == "1":
+                self.mostrar_inventario()
+            elif menu == "2":
+                self.agregar_producto()
+            elif menu == "3":
+                self.quitar_producto()
+            elif menu == "4":
+                self.actualizar_precio()
+            elif menu == "5":
+                self.actualizar_cantidad()
+            elif menu == "6":
+                print("Hasta luego")
+                break
+            else:
+                print("Seleccione una opción correcta porfavor.")
+print("-----------------------------")
+print("Bienvenido a su tienda virtual de Frutas Surtidas")
+tienda = Inventario()
+tienda.run()
